@@ -3,44 +3,37 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Miroir magique</title>
+    <title>Miroir Magique</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- Sound -->
     <audio id="magic-sound" preload="auto">
-        <source
-            src="sounds/magical-twinkle.mp3"
-            type="audio/mp3">
-        Ton navigateur ne supporte pas l'audio.
+        <source src="sounds/magical-twinkle.mp3" type="audio/mp3">
     </audio>
 
-    <!-- Hidden radio -->
+    <!-- Radios -->
     <input type="radio" name="vision" id="love" hidden>
     <input type="radio" name="vision" id="future" hidden>
     <input type="radio" name="vision" id="fate" hidden>
 
     <div class="scene">
-        <!-- Effects -->
-        <div class="fog"></div>
+        
+        <div class="fog-layer"></div>
+        <div class="fog-layer fog-layer2"></div>
+        <div class="fog-layer3"></div>
         <div class="candles">
             <div class="candle left"></div>
             <div class="candle right"></div>
         </div>
-
         <div class="magic-mirror">
-            <h1>🔮 Miroir magique 🔮</h1>
-
-            <!-- Choice -->
+            <h1>🔮 Miroir Magique 🔮</h1>
             <div class="buttons">
                 <label for="love">❤️ Amour</label>
                 <label for="future">⏳ Avenir</label>
                 <label for="fate">🎲 Destin</label>
             </div>
-
-            <!-- Messages -->
             <div class="message love">"L’amour est plus proche que tu ne le crois..."</div>
             <div class="message future">"Ton avenir brille, mais gare aux ombres..."</div>
             <div class="message fate">"Le destin te réserve une surprise imminente."</div>
@@ -50,13 +43,11 @@
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             const audio = document.getElementById("magic-sound");
-            const labels = document.querySelectorAll("label");
-
-            labels.forEach(label => {
+            document.querySelectorAll("label").forEach(label => {
                 label.addEventListener("click", () => {
                     if (audio) {
                         audio.currentTime = 0;
-                        audio.play()
+                        audio.play().catch(e => console.warn("Audio error:", e));
                     }
                 });
             });

@@ -2,107 +2,111 @@
 
 body {
     margin: 0;
-    padding: 0;
-    background: #000;
-    color: white;
+    background: radial-gradient(ellipse at center, #222 0%, #000 100%);
     font-family: 'Cinzel', serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    color: white;
     overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .scene {
     position: relative;
     width: 100%;
     height: 100%;
-    overflow: hidden;
 }
 
-/* === Mirror === */
 .magic-mirror {
-    position: relative;
-    z-index: 2;
-    max-width: 400px;
-    min-height: 500px;
-    margin: auto;
-    padding: 2rem;
-    border: 10px solid gold;
-    border-radius: 50%;
-    background: radial-gradient(circle at center, #111 0%, #222 100%);
-    box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+    width: 500px;
+    height: 650px;
+    border-radius: 50% / 45%;
+    background-color: #111;
+    border: 8px solid #ffd700;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 255, 255, 0.1) inset;
     text-align: center;
-    transition: box-shadow 1s ease-in-out;
-    animation: mirrorGlow 5s ease-in-out infinite alternate;
+    padding: 2rem;
+    margin: auto;
+    position: relative;
+    top: 100px;
+    z-index: 2;
 }
 
-@keyframes mirrorGlow {
-    0% {
-        box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-    }
-
-    100% {
-        box-shadow: 0 0 60px rgba(255, 215, 0, 0.7);
-    }
-}
-
-/* === Buttons === */
 .buttons {
     margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.8rem;
 }
 
 .buttons label {
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.1);
     border: 2px solid white;
-    margin: 0.5rem;
     padding: 0.5rem 1.2rem;
+    background: transparent;
+    color: white;
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 8px;
+    transition: 0.3s;
+    
 }
 
 .buttons label:hover {
     background: white;
     color: black;
-    transform: scale(1.05);
 }
 
-/* === Messages === */
 .message {
     position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0.8);
-        opacity: 0;
-        transition: opacity 0.6s ease, transform 0.6s ease;
-        font-size: 1.3rem;
-        width: 80%;
-        text-align: center;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-        pointer-events: none;
+    top: 45%;
+    left: 5%;
+    right: 5%;
+    opacity: 0;
+    font-size: 2rem;
+    color: #ccc;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    transition: opacity 0.6s ease;
+    pointer-events: none;
 }
 
-#love:checked ~ .scene .magic-mirror .message.love,
-#future:checked ~ .scene .magic-mirror .message.future,
-#fate:checked ~ .scene .magic-mirror .message.fate {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
+#love:checked~.scene .magic-mirror .message.love,
+#future:checked~.scene .magic-mirror .message.future,
+#fate:checked~.scene .magic-mirror .message.fate {
+    opacity: 1;
+}
 
-/* === Fog === */
-.fog {
+.fog-layer {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 30% 30%, rgb(110, 107, 107), transparent 60%);
-    filter: blur(10px);
-    animation: fogMove 15s infinite linear;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.05), transparent 80%);
+    animation: fogMove 60s infinite linear;
+    z-index: 0;
+    filter: blur(20px);
+}
+
+.fog-layer2 {
+    animation-delay: 10s;
+    background: radial-gradient(ellipse at 70% 30%, rgba(255, 255, 255, 0.03), transparent 80%);
+    filter: blur(30px);
+}
+
+.fog-layer3 {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: url('images/smoke1.png') repeat;
+    background-size: cover;
+    animation: fogDrift 80s linear infinite;
+    filter: blur(14px) brightness(1.2);
+    opacity: 0.07;
+    z-index: 0;
     pointer-events: none;
-    z-index: 2;
 }
 
 @keyframes fogMove {
@@ -111,7 +115,7 @@ body {
     }
 
     50% {
-        transform: translate(10px, -20px);
+        transform: translate(60px, -40px);
     }
 
     100% {
@@ -119,41 +123,36 @@ body {
     }
 }
 
-/* === Candles === */
 .candles {
     position: absolute;
-    bottom: 10%;
+    bottom: 30px;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 5%;
+    padding: 0 40px;
     z-index: 1;
 }
 
 .candle {
-    width: 20px;
-    height: 60px;
-    background: linear-gradient(to top, #333, #666);
-    border-radius: 5px;
+    width: 14px;
+    height: 40px;
+    background: linear-gradient(to top, #444, #777);
+    border-radius: 4px;
     position: relative;
 }
 
 .candle::before {
     content: '';
-        position: absolute;
-        top: -28px;
-        left: 50%;
-        width: 16px;
-        height: 28px;
-        background: radial-gradient(ellipse at center, #ffa500 0%, #ff4500 70%, transparent 100%);
-        transform: translateX(-50%) scale(1);
-        border-radius: 60% 60% 30% 30% / 80% 80% 20% 20%;
-        /* drop shape */
-        filter: blur(1px);
-        opacity: 0.8;
-        animation: flameWiggle 1s infinite ease-in-out;
-        box-shadow: 0 0 10px #ffa500, 0 0 30px #ff4500;
-        z-index: 2;
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 18px;
+    background: radial-gradient(ellipse at center, #ff0, #f90, #f00);
+    border-radius: 50% 50% 40% 40%;
+    animation: flameWiggle 1s infinite alternate;
+    box-shadow: 0 0 15px orange;
 }
 
 @keyframes flameWiggle {
@@ -162,11 +161,10 @@ body {
     }
 
     50% {
-        transform: translateX(-50%) scale(1.05, 1.1) rotate(2deg);
+        transform: translateX(-50%) scale(1.1) rotate(2deg);
     }
 
     100% {
         transform: translateX(-50%) scale(1) rotate(-2deg);
     }
-
 }
