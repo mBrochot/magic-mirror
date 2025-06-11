@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    color: white;
+    font-family: 'Cinzel', serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* === Mirror === */
+.magic-mirror {
+    position: relative;
+    z-index: 2;
+    max-width: 400px;
+    min-height: 500px;
+    margin: auto;
+    padding: 2rem;
+    border: 10px solid gold;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #111 0%, #222 100%);
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+    text-align: center;
+    transition: box-shadow 1s ease-in-out;
+    animation: mirrorGlow 5s ease-in-out infinite alternate;
+}
+
+@keyframes mirrorGlow {
+    0% {
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+    }
+
+    100% {
+        box-shadow: 0 0 60px rgba(255, 215, 0, 0.7);
+    }
+}
+
+/* === Buttons === */
+.buttons {
+    margin-top: 1rem;
+}
+
+.buttons label {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid white;
+    margin: 0.5rem;
+    padding: 0.5rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+.buttons label:hover {
+    background: white;
+    color: black;
+    transform: scale(1.05);
+}
+
+/* === Messages === */
+.message {
+    position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+        transition: opacity 0.6s ease, transform 0.6s ease;
+        font-size: 1.3rem;
+        width: 80%;
+        text-align: center;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        pointer-events: none;
+}
+
+#love:checked ~ .scene .magic-mirror .message.love,
+#future:checked ~ .scene .magic-mirror .message.future,
+#fate:checked ~ .scene .magic-mirror .message.fate {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+/* === Fog === */
+.fog {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 30%, rgb(110, 107, 107), transparent 60%);
+    filter: blur(10px);
+    animation: fogMove 15s infinite linear;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@keyframes fogMove {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(10px, -20px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+/* === Candles === */
+.candles {
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5%;
+    z-index: 1;
+}
+
+.candle {
+    width: 20px;
+    height: 60px;
+    background: linear-gradient(to top, #333, #666);
+    border-radius: 5px;
+    position: relative;
+}
+
+.candle::before {
+    content: '';
+        position: absolute;
+        top: -28px;
+        left: 50%;
+        width: 16px;
+        height: 28px;
+        background: radial-gradient(ellipse at center, #ffa500 0%, #ff4500 70%, transparent 100%);
+        transform: translateX(-50%) scale(1);
+        border-radius: 60% 60% 30% 30% / 80% 80% 20% 20%;
+        /* drop shape */
+        filter: blur(1px);
+        opacity: 0.8;
+        animation: flameWiggle 1s infinite ease-in-out;
+        box-shadow: 0 0 10px #ffa500, 0 0 30px #ff4500;
+        z-index: 2;
+}
+
+@keyframes flameWiggle {
+    0% {
+        transform: translateX(-50%) scale(1) rotate(-2deg);
+    }
+
+    50% {
+        transform: translateX(-50%) scale(1.05, 1.1) rotate(2deg);
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1) rotate(-2deg);
+    }
+
+}
